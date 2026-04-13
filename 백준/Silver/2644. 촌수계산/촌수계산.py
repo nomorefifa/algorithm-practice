@@ -14,13 +14,13 @@ for i in range(edge):
     graph[y].append(x)
 
 def dfs(n, ans):
+    if n == ans_y:
+        print(ans)
+        exit()
     visited[n] = True
     for i in graph[n]:
-        if i == ans_y:
-            print(ans)
-            exit()
         if not visited[i]:
             dfs(i, ans + 1)
 
-dfs(ans_x, 1)
+dfs(ans_x, 0)
 print(-1)
