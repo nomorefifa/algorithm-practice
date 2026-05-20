@@ -5,7 +5,7 @@ ans = 0
 for i in range(N):
     tmpCnt = 1
     tmpB = B - (gifts[i][0]) // 2 - gifts[i][1]
-    tmpGifts = sorted(sum_arr[0:i] + sum_arr[i + 1:], key = lambda x: x)
+    tmpGifts = sorted(sum_arr[0:i] + sum_arr[i + 1:])
     for j in range(len(tmpGifts)):
         if tmpB - tmpGifts[j] >= 0:
             tmpB -= tmpGifts[j]
