@@ -14,7 +14,6 @@ for i in range(n):
     for j in range(n):
         if grid[i][j] == 2:
             q.append((i, j))
-            visited[i][j] = True
             ans[i][j] = 0
         if grid[i][j] == 0:
             ans[i][j] = -1
