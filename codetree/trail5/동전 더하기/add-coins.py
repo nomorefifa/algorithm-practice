@@ -9,7 +9,7 @@ for i in range(n - 1, -1, -1):
     cur_cost = cur_cost % coins[i]
 
 for i in range(n):
-    if k % coins[i] == 0 and k //coins[i] < ans:
-        ans = k //coins
+    if k % coins[i] == 0 and k // coins[i] < ans:
+        ans = k // coins[i]
 
 print(ans)
