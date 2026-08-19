@@ -1,26 +1,27 @@
 def solution(k, dungeons):
-    visited = [False] * (len(dungeons))
-    case = []
-    def dfs(tmp_case):
+    visited = [False] * len(dungeons)
+    answer = 0
+
+    def dfs(k, cnt):
+        nonlocal answer
+
+        answer = max(answer, cnt)
+
         for i in range(len(dungeons)):
-            if visited[i] == True:
+            if visited[i]:
                 continue
-            tmp_case.append(i)
+
+            minimum, consume = dungeons[i]
+
+            if k < minimum:
+                continue
+
             visited[i] = True
-            if len(tmp_case) == len(dungeons):
-                case.append(tmp_case.copy())
-            dfs(tmp_case)
+
+            dfs(k - consume, cnt + 1)
+
             visited[i] = False
-            tmp_case.pop()
-    dfs([])
-    ans = 0
-    for i in range(len(case)):
-        cnt = 0
-        tmp_k = k
-        for j in range(len(case[i])):
-            if dungeons[case[i][j]][0] <= tmp_k:
-                tmp_k -= dungeons[case[i][j]][1]
-                cnt += 1
-        if cnt > ans:
-            ans = cnt
-    return ans
+
+    dfs(k, 0)
+
+    return answer
