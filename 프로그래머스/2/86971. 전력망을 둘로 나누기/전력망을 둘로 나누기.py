@@ -1,29 +1,27 @@
-
-
+import sys
+sys.setrecursionlimit(10**6)
 def solution(n, wires):
-    ans = 1000000000000
-
-    def dfs(node):
-        nonlocal cnt
-        visited[node] = True
-        for k in cur_wires[node]:
-            if not visited[k]:
-                cnt += 1
-                dfs(k)
-    
-    for i in range(n - 1):
-        tmp_wires = wires[:i] + wires[i + 1:]
-        cur_wires = [[] for _ in range(n + 1)]
-        for tmp in tmp_wires:
-            cur_wires[tmp[0]].append(tmp[1])
-            cur_wires[tmp[1]].append(tmp[0])
-        visited = [False] * (n + 1)
+    ans = 1000000000000000
+    def dfs(v):
         cnt = 1
-        
-        dfs(1)
-    
-        rest = n - cnt
-        if abs(rest - cnt) < ans:
-            ans = abs(rest - cnt)
-        
+        visited[v] = True
+        for next in x[v]:
+            if not visited[next]:
+                cnt += dfs(next)
+        return cnt
+    for i in range(len(wires)):
+        visited = [False] * (101)
+        tmp = []
+        x = [[] for _ in range(101)]
+        for j in range(len(wires)):
+            if i == j:
+                continue
+            x[wires[j][0]].append(wires[j][1])
+            x[wires[j][1]].append(wires[j][0])
+        for k in range(1, 101):
+            if not visited[k]:
+                tmp_cnt = dfs(k)
+                tmp.append(tmp_cnt)
+        if ans > abs(tmp[0] - tmp[1]):
+            ans = abs(tmp[0] - tmp[1])
     return ans
